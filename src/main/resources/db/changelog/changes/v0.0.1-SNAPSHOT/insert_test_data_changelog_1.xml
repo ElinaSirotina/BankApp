@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert-managers-data" author="sirotina">
+        <insert tableName="managers">
+            <column name="id" valueComputed="UUID_TO_BIN('e6c069e7-353e-4b93-8790-fd35e4b3eb44')"/>
+            <column name="first_name">Mo</column>
+            <column name="last_name">Uo</column>
+            <column name="status">ACTIVE</column>
+            <column name="created_at">2023-03-13 10:00:00</column>
+            <column name="updated_at">2023-03-13 10:00:00</column>
+        </insert>
+        <insert tableName="managers">
+            <column name="id" valueComputed="UUID_TO_BIN('eec7d3e4-f2de-472d-98b1-cf3ae58c5392')"/>
+            <column name="first_name">Lo</column>
+            <column name="last_name">La</column>
+            <column name="status">PENDING</column>
+            <column name="created_at">2023-03-13 11:00:00</column>
+            <column name="updated_at">2023-03-13 11:00:00</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-client-data" author="sirotina">
+        <insert tableName="clients">
+            <column name="id" valueComputed="UUID_TO_BIN('738a065c-e9fe-4095-93bb-fb8d7dcb212c')"/>
+            <column name="manager_id" valueComputed="UUID_TO_BIN('e6c069e7-353e-4b93-8790-fd35e4b3eb44')"/>
+            <column name="status">ACTIVE</column>
+            <column name="tax_code">887458762</column>
+            <column name="first_name">Meek</column>
+            <column name="last_name">Mill</column>
+            <column name="email">mill.meek@gmail.com</column>
+            <column name="address">Non addr 12, Germany Germany</column>
+            <column name="phone">+47165725988</column>
+            <column name="created_at">2023-03-13 13:00:00</column>
+            <column name="updated_at">2023-03-13 13:00:00</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-account-data" author="sirotina">
+        <insert tableName="accounts">
+            <column name="id" valueComputed="UUID_TO_BIN('788e611c-de42-4a94-a301-efac55bf159b')"/>
+            <column name="client_id" valueComputed="UUID_TO_BIN('738a065c-e9fe-4095-93bb-fb8d7dcb212c')"/>
+            <column name="name">Checking Account</column>
+            <column name="type">DEPOSIT</column>
+            <column name="status">ACTIVE</column>
+            <column name="balance">2700.00</column>
+            <column name="currency_code">USD</column>
+            <column name="created_at">2023-03-13 15:00:00</column>
+            <column name="updated_at">2023-03-13 15:00:00</column>
+
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-product-data" author="sirotina">
+        <insert tableName="products">
+            <column name="id" valueComputed="UUID_TO_BIN('0fb45915-1a3b-4ff7-acb5-39f90cff9ac7')"/>
+            <column name="manager_id" valueComputed="UUID_TO_BIN('e6c069e7-353e-4b93-8790-fd35e4b3eb44')"/>
+            <column name="name">Credit</column>
+            <column name="status">ACTIVE</column>
+            <column name="currency_code">EUR</column>
+            <column name="interest_rate">1.350</column>
+            <column name="limit">20000</column>
+            <column name="created_at">2023-03-15 16:00:00</column>
+            <column name="updated_at">2023-03-15 16:00:00</column>
+
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-agreement-data" author="sirotina">
+        <insert tableName="agreements">
+            <column name="id" valueComputed="UUID_TO_BIN('009f0f40-6414-4783-a260-d3aa870f07c6')"/>
+            <column name="account_id" valueComputed="UUID_TO_BIN('788e611c-de42-4a94-a301-efac55bf159b')"/>
+            <column name="product_id" valueComputed="UUID_TO_BIN('0fb45915-1a3b-4ff7-acb5-39f90cff9ac7')"/>
+            <column name="interest_rate">1.550</column>
+            <column name="status">ACTIVE</column>
+            <column name="sum">10000.00</column>
+            <column name="created_at">2023-03-20 12:00:00</column>
+            <column name="updated_at">2023-03-20 12:00:00</column>
+
+        </insert>
+    </changeSet>
+
+    <changeSet author="sirotina" id="insert-transaction-data">
+        <insert tableName="transactions">
+            <column name="id" valueComputed="UUID_TO_BIN('12ab579d-8e25-4eaa-bcdc-cd8c94bc30d9')"/>
+            <column name="debit_account_id" valueComputed="UUID_TO_BIN('788e611c-de42-4a94-a301-efac55bf159b')"/>
+            <column name="credit_account_id" valueComputed="UUID_TO_BIN('788e611c-de42-4a94-a301-efac55bf159b')"/>
+            <column name="type">NEW</column>
+            <column name="amount">200.0000</column>
+            <column name="description">Credit Transaction</column>
+            <column name="created_at">2022-01-01 12:00:00</column>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

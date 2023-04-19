@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="create-manager-table" author="sirotina">
+        <preConditions onFail="CONTINUE" onFailMessage="Table manager already exists">
+            <not>
+                <tableExists tableName="managers"/>
+            </not>
+        </preConditions>
+        <createTable tableName="managers">
+            <column name="id" type="BINARY(16)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-client-table" author="sirotina">
+        <preConditions onFail="CONTINUE" onFailMessage="Table client already exists">
+            <not>
+                <tableExists tableName="clients"/>
+            </not>
+        </preConditions>
+        <createTable tableName="clients">
+            <column name="id" type="BINARY(16)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="manager_id" type="BINARY(16)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="varchar(20)"/>
+            <column name="tax_code" type="varchar(20)"/>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="email" type="varchar(60)"/>
+            <column name="address" type="varchar(80)"/>
+            <column name="phone" type="varchar(20)"/>
+            <column name="created_at" type="timestamp"/>
+            <column name="updated_at" type="timestamp"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="clients" baseColumnNames="manager_id"
+                                 constraintName="fk_manager_id_client"
+                                 referencedTableName="managers" referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet author="sirotina" id="create_account_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table account already exists">
+            <not>
+                <tableExists tableName="accounts"/>
+            </not>
+        </preConditions>
+        <createTable tableName="accounts">
+            <column name="id" type="BINARY(16)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="client_id" type="BINARY(16)">
+                <constraints foreignKeyName="fk_client_account" referencedTableName="clients"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="type" type="varchar(20)"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="balance" type="decimal(15,2)"/>
+            <column name="currency_code" type="varchar(20)"/>
+            <column name="created_at" type="timestamp"/>
+            <column name="updated_at" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="sirotina" id="create_product_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table product already exists">
+            <not>
+                <tableExists tableName="products"/>
+            </not>
+        </preConditions>
+        <createTable tableName="products">
+            <column name="id" type="BINARY(16)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="manager_id" type="BINARY(16)">
+                <constraints foreignKeyName="true" referencedTableName="managers" referencedColumnNames="id"/>
+            </column>
+            <column name="name" type="varchar(70)"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="currency_code" type="varchar(20)"/>
+            <column name="interest_rate" type="decimal(6,4)"/>
+            <column name="limit" type="int"/>
+            <column name="created_at" type="timestamp"/>
+            <column name="updated_at" type="timestamp">
+                <constraints/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="sirotina" id="create_agreement_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table agreement already exists">
+            <not>
+                <tableExists tableName="agreements"/>
+            </not>
+        </preConditions>
+        <createTable tableName="agreements">
+            <column name="id" type="BINARY(16)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="account_id" type="BINARY(16)">
+                <constraints foreignKeyName="fk_agreement_account_id" referencedTableName="accounts"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="product_id" type="BINARY(16)">
+                <constraints foreignKeyName="fk_agreement_product_id" referencedTableName="products"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="interest_rate" type="decimal(6,4)" defaultValueNumeric="0.0000"/>
+            <column name="status" type="varchar(20)" defaultValueNumeric="0"/>
+            <column name="sum" type="decimal(15,2)" defaultValueNumeric="0.00"/>
+            <column name="created_at" type="timestamp"/>
+            <column name="updated_at" type="timestamp">
+                <constraints/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="sirotina" id="create_transaction_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table transaction already exists">
+            <not>
+                <tableExists tableName="transactions"/>
+            </not>
+        </preConditions>
+        <createTable tableName="transactions">
+            <column name="id" type="BINARY(16)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="debit_account_id" type="BINARY(16)">
+                <constraints foreignKeyName="fk_debit_account_id" referencedTableName="accounts"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="credit_account_id" type="BINARY(16)">
+                <constraints foreignKeyName="fk_credit_account_id" referencedTableName="accounts"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="type" type="varchar(20)"/>
+            <column name="amount" type="decimal(12,4)"/>
+            <column name="description" type="varchar(250)"/>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
