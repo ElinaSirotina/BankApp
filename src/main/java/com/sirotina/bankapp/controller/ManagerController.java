@@ -2,6 +2,7 @@ package com.sirotina.bankapp.controller;
 
 import com.sirotina.bankapp.dto.ManagerDto;
 import com.sirotina.bankapp.service.ManagerService;
+import com.sirotina.bankapp.service.impl.ManagerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ManagerController {
 
-    private final ManagerService managerService;
+    private final ManagerServiceImpl managerService;
 
     @GetMapping("/managers")
     public List<ManagerDto> getAllManagers() {
