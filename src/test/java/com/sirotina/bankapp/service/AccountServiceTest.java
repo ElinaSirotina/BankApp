@@ -124,7 +124,7 @@ public class AccountServiceTest {
         UUID id = UUID.randomUUID();
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setNickname("new_nickname");
-        accountDTO.setStatus(AccountStatus.BLOCKED.name());
+        accountDTO.setStatus(AccountStatus.BLOCKED);
         Account account = new Account();
         when(repository.findById(id)).thenReturn(Optional.of(account));
         Account savedAccount = new Account();

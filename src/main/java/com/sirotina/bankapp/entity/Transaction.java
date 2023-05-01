@@ -2,10 +2,7 @@ package com.sirotina.bankapp.entity;
 
 import com.sirotina.bankapp.entity.enums.TransactionType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -16,8 +13,7 @@ import java.util.UUID;
 @Table(name = "transactions")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class Transaction {
 
     @Id

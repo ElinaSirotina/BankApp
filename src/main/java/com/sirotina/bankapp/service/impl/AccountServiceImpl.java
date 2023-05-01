@@ -3,6 +3,7 @@ package com.sirotina.bankapp.service.impl;
 import com.sirotina.bankapp.dto.AccountDTO;
 import com.sirotina.bankapp.entity.Account;
 import com.sirotina.bankapp.entity.enums.AccountStatus;
+import com.sirotina.bankapp.entity.enums.CurrencyCode;
 import com.sirotina.bankapp.mapper.AccountMapper;
 import com.sirotina.bankapp.repository.AccountRepository;
 import com.sirotina.bankapp.service.AccountService;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,34 +41,24 @@ public class AccountServiceImpl implements AccountService {
         return mapper.accountsToAccountsDto(repository.findAll());
     }
 
-//    @Transactional
-//    public AccountDTO addNewAccount(AccountDTO accountDTO) {
-//        Account account = mapper.dtoToAccount(accountDTO);
-//        if(account.getBalance() == null) {
-//            account.setBalance(0);
-//        } else {
-//            account.setBalance(Integer.parseInt(accountDTO.getBalance()));
-//        }
-//        checkAccountExist(account.getNickname());
-//        account.setId(UUID.randomUUID());
-//        account.setCurrencyCode(CurrencyCode.valueOf(accountDTO.getCurrencyCode()));
-//        account.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-//        account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-//
-//        repository.save(account);
-//        return mapper.toDto(account);
-//    }
-
     @Override
     @Transactional
     public AccountDTO addNewAccount(AccountDTO accountDTO) {
-        Account account = mapper.dtoToAccount(accountDTO);
-        checkAccountExist(account.getNickname());
+        String nickname = accountDTO.getNickname();
+        checkAccountExist(nickname);
+
+        Account account = new Account();
         account.setId(UUID.randomUUID());
-        account.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-        account.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-        repository.save(account);
-        return mapper.toDto(account);
+        account.setNickname(accountDTO.getNickname());
+        account.setType(accountDTO.getType());
+        account.setStatus(accountDTO.getStatus());
+        account.setBalance(new BigDecimal(accountDTO.getBalance()).intValue());
+        account.setCurrencyCode(CurrencyCode.valueOf(accountDTO.getCurrencyCode()));
+        account.setCreatedAt(accountDTO.getCreatedAt());
+        account.setUpdatedAt(accountDTO.getUpdatedAt());
+
+        Account savedAccount = repository.save(account);
+        return mapper.toDto(savedAccount);
     }
 
     private void checkAccountExist(String nickname){
@@ -82,7 +74,7 @@ public class AccountServiceImpl implements AccountService {
         );
 
         account.setNickname(accountDTO.getNickname());
-        account.setStatus(AccountStatus.valueOf(accountDTO.getStatus()));
+        account.setStatus(accountDTO.getStatus());
         account.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
         Account result = repository.save(account);

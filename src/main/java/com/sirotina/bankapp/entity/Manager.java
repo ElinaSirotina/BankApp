@@ -13,9 +13,7 @@ import java.util.UUID;
 @Table(name = "managers")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 public class Manager {
 
     @Id

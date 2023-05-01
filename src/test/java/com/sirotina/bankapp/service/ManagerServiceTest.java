@@ -36,7 +36,7 @@ public class ManagerServiceTest {
         Manager manager = new Manager();
         manager.setId(id);
         ManagerDto managerDto = new ManagerDto();
-        managerDto.setId(id.toString());
+        managerDto.setId(id);
 
         when(mockRepository.findManagerById(id)).thenReturn(Optional.of(manager));
         when(mockMapper.toDto(manager)).thenReturn(managerDto);
@@ -56,9 +56,9 @@ public class ManagerServiceTest {
         manager2.setId(UUID.randomUUID());
         List<Manager> managers = Arrays.asList(manager1, manager2);
         ManagerDto managerDto1 = new ManagerDto();
-        managerDto1.setId(manager1.getId().toString());
+        managerDto1.setId(manager1.getId());
         ManagerDto managerDto2 = new ManagerDto();
-        managerDto2.setId(manager2.getId().toString());
+        managerDto2.setId(manager2.getId());
         List<ManagerDto> managerDtos = Arrays.asList(managerDto1, managerDto2);
 
         when(mockRepository.findAll()).thenReturn(managers);
