@@ -29,7 +29,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<ManagerDto> getAllManagers() {
-        //System.out.println(repository.findAll());
+        System.out.println(repository.findAll());
         return mapper.managersToManagersDto
                 (repository.findAll());
     }

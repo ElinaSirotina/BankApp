@@ -1,6 +1,6 @@
 package com.sirotina.bankapp.service.impl;
 
-import com.sirotina.bankapp.dto.AccountDTO;
+import com.sirotina.bankapp.dto.AccountDto;
 import com.sirotina.bankapp.entity.Account;
 import com.sirotina.bankapp.entity.enums.AccountStatus;
 import com.sirotina.bankapp.entity.enums.CurrencyCode;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +28,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<AccountDTO> findAllAccountsByStatus(AccountStatus status) {
+    public List<AccountDto> findAllAccountsByStatus(AccountStatus status) {
         return mapper.accountsToAccountsDto(repository.findAllByStatus(status).
                 orElseThrow(
                         () -> new AccountNotFoundException
@@ -37,13 +36,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AccountDTO> findAllAccounts() {
+    public List<AccountDto> findAllAccounts() {
         return mapper.accountsToAccountsDto(repository.findAll());
     }
 
     @Override
     @Transactional
-    public AccountDTO addNewAccount(AccountDTO accountDTO) {
+    public AccountDto addNewAccount(AccountDto accountDTO) {
         String nickname = accountDTO.getNickname();
         checkAccountExist(nickname);
 
@@ -68,7 +67,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO editAccountById(UUID id, AccountDTO accountDTO) {
+    public AccountDto editAccountById(UUID id, AccountDto accountDTO) {
         Account account = repository.findById(id).orElseThrow(
                 () -> new AccountNotFoundException(ErrorMessage.ACCOUNT_NOT_FOUND_BY_ID)
         );

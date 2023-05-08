@@ -2,7 +2,7 @@ package com.sirotina.bankapp.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sirotina.bankapp.dto.AccountDTO;
+import com.sirotina.bankapp.dto.AccountDto;
 import com.sirotina.bankapp.entity.enums.AccountStatus;
 import com.sirotina.bankapp.service.impl.AccountServiceImpl;
 import org.junit.Before;
@@ -46,9 +46,9 @@ public class AccountControllerTest {
     @Test
     public void testGetAllAccountsByStatus_returnsListOfAccountsByStatus() throws Exception {
         // Arrange
-        AccountDTO account1 = new AccountDTO(UUID.randomUUID(), "John",  AccountStatus.ACTIVE);
-        AccountDTO account2 = new AccountDTO(UUID.randomUUID(), "Jane",  AccountStatus.BLOCKED);
-        List<AccountDTO> expectedAccounts = Arrays.asList(account1, account2);
+        AccountDto account1 = new AccountDto(UUID.randomUUID(), "John",  AccountStatus.ACTIVE);
+        AccountDto account2 = new AccountDto(UUID.randomUUID(), "Jane",  AccountStatus.BLOCKED);
+        List<AccountDto> expectedAccounts = Arrays.asList(account1, account2);
         when(accountService.findAllAccountsByStatus(AccountStatus.ACTIVE)).thenReturn(expectedAccounts);
 
         // Act
@@ -59,16 +59,16 @@ public class AccountControllerTest {
 
         // Assert
         String json = result.getResponse().getContentAsString();
-        List<AccountDTO> actualAccounts = new ObjectMapper().readValue(json, new TypeReference<>() {});
+        List<AccountDto> actualAccounts = new ObjectMapper().readValue(json, new TypeReference<>() {});
         assertEquals(expectedAccounts, actualAccounts);
     }
 
     @Test
     public void testGetAllAccounts_returnsListOfAllAccounts() throws Exception {
         // Arrange
-        AccountDTO account1 = new AccountDTO(UUID.randomUUID(), "John", AccountStatus.ACTIVE);
-        AccountDTO account2 = new AccountDTO(UUID.randomUUID(), "Jane",  AccountStatus.BLOCKED);
-        List<AccountDTO> expectedAccounts = Arrays.asList(account1, account2);
+        AccountDto account1 = new AccountDto(UUID.randomUUID(), "John", AccountStatus.ACTIVE);
+        AccountDto account2 = new AccountDto(UUID.randomUUID(), "Jane",  AccountStatus.BLOCKED);
+        List<AccountDto> expectedAccounts = Arrays.asList(account1, account2);
         when(accountService.findAllAccounts()).thenReturn(expectedAccounts);
 
         // Act
@@ -79,16 +79,16 @@ public class AccountControllerTest {
 
         // Assert
         String json = result.getResponse().getContentAsString();
-        List<AccountDTO> actualAccounts = new ObjectMapper().readValue(json, new TypeReference<List<AccountDTO>>() {});
+        List<AccountDto> actualAccounts = new ObjectMapper().readValue(json, new TypeReference<List<AccountDto>>() {});
         assertEquals(expectedAccounts, actualAccounts);
     }
 
     @Test
     public void testAddNewAccount_addsNewAccount() throws Exception {
         // Arrange
-        AccountDTO account = new AccountDTO(UUID.randomUUID(), "John", AccountStatus.ACTIVE);
+        AccountDto account = new AccountDto(UUID.randomUUID(), "John", AccountStatus.ACTIVE);
         String json = new ObjectMapper().writeValueAsString(account);
-        when(accountService.addNewAccount(any(AccountDTO.class))).thenReturn(account);
+        when(accountService.addNewAccount(any(AccountDto.class))).thenReturn(account);
 
         // Act
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts/add")
@@ -99,7 +99,7 @@ public class AccountControllerTest {
 
         // Assert
         String jsonResponse = result.getResponse().getContentAsString();
-        AccountDTO actualAccount = new ObjectMapper().readValue(jsonResponse, AccountDTO.class);
+        AccountDto actualAccount = new ObjectMapper().readValue(jsonResponse, AccountDto.class);
         assertEquals(account, actualAccount);
     }
 
@@ -107,9 +107,9 @@ public class AccountControllerTest {
     public void testEditAccountById_editsExistingAccount() throws Exception {
         // Arrange
         UUID accountId = UUID.randomUUID();
-        AccountDTO updatedAccount = new AccountDTO(accountId, "Jane", AccountStatus.BLOCKED);
+        AccountDto updatedAccount = new AccountDto(accountId, "Jane", AccountStatus.BLOCKED);
         String json = new ObjectMapper().writeValueAsString(updatedAccount);
-        when(accountService.editAccountById(eq(accountId), any(AccountDTO.class))).thenReturn(updatedAccount);
+        when(accountService.editAccountById(eq(accountId), any(AccountDto.class))).thenReturn(updatedAccount);
 
         // Act
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/api/accounts/edit/{id}", accountId)
@@ -120,7 +120,7 @@ public class AccountControllerTest {
 
         // Assert
         String jsonResponse = result.getResponse().getContentAsString();
-        AccountDTO actualAccount = new ObjectMapper().readValue(jsonResponse, AccountDTO.class);
+        AccountDto actualAccount = new ObjectMapper().readValue(jsonResponse, AccountDto.class);
         assertEquals(updatedAccount, actualAccount);
     }
 

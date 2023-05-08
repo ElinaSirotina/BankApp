@@ -1,6 +1,6 @@
 package com.sirotina.bankapp.controller;
 
-import com.sirotina.bankapp.dto.AccountDTO;
+import com.sirotina.bankapp.dto.AccountDto;
 import com.sirotina.bankapp.entity.enums.AccountStatus;
 import com.sirotina.bankapp.service.impl.AccountServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,7 +25,7 @@ public class AccountController {
             description = "Позволяет получить список аккаунтов по статусу аккаунта"
     )
     @GetMapping("/{status}")
-    public List<AccountDTO> getAllAccountsByStatus(@PathVariable AccountStatus status) {
+    public List<AccountDto> getAllAccountsByStatus(@PathVariable AccountStatus status) {
         return service.findAllAccountsByStatus(status);
     }
 
@@ -34,7 +34,7 @@ public class AccountController {
             description = "Позволяет получить список всех аккаунтов"
     )
     @GetMapping("/list")
-    public List<AccountDTO> getAllAccounts() {
+    public List<AccountDto> getAllAccounts() {
         return service.findAllAccounts();
     }
 
@@ -43,7 +43,7 @@ public class AccountController {
             description = "Позволяет добавить аккаунт"
     )
     @PostMapping(path = "/add", consumes = {"application/json"})
-    public AccountDTO addNewAccount(@RequestBody @Parameter(description = "json аккунт") AccountDTO accountDTO) {
+    public AccountDto addNewAccount(@RequestBody @Parameter(description = "json аккунт") AccountDto accountDTO) {
         System.out.println(accountDTO);
         return service.addNewAccount(accountDTO);
     }
@@ -53,7 +53,7 @@ public class AccountController {
             description = "Позволяет редактировать аккаунт по его id"
     )
     @PutMapping(path = "edit/{id}", consumes = {"application/json"})
-    public AccountDTO editAccountById(@PathVariable UUID id, @RequestBody AccountDTO accountDTO) {
+    public AccountDto editAccountById(@PathVariable UUID id, @RequestBody AccountDto accountDTO) {
         return service.editAccountById(id, accountDTO);
     }
 

@@ -1,6 +1,6 @@
 package com.sirotina.bankapp.service;
 
-import com.sirotina.bankapp.dto.AccountDTO;
+import com.sirotina.bankapp.dto.AccountDto;
 import com.sirotina.bankapp.entity.Account;
 import com.sirotina.bankapp.entity.enums.AccountStatus;
 import com.sirotina.bankapp.mapper.AccountMapper;
@@ -41,14 +41,14 @@ public class AccountServiceTest {
         AccountStatus status = AccountStatus.ACTIVE;
         List<Account> accounts = Arrays.asList(new Account(), new Account());
         when(repository.findAllByStatus(status)).thenReturn(Optional.of(accounts));
-        List<AccountDTO> accountDTOs = Arrays.asList(new AccountDTO(), new AccountDTO());
-        when(mapper.accountsToAccountsDto(accounts)).thenReturn(accountDTOs);
+        List<AccountDto> accountDtos = Arrays.asList(new AccountDto(), new AccountDto());
+        when(mapper.accountsToAccountsDto(accounts)).thenReturn(accountDtos);
 
         // Act
-        List<AccountDTO> result = accountService.findAllAccountsByStatus(status);
+        List<AccountDto> result = accountService.findAllAccountsByStatus(status);
 
         // Assert
-        assertEquals(accountDTOs, result);
+        assertEquals(accountDtos, result);
     }
 
     @Test(expected = AccountNotFoundException.class)
@@ -69,33 +69,33 @@ public class AccountServiceTest {
         // Arrange
         List<Account> accounts = Arrays.asList(new Account(), new Account());
         when(repository.findAll()).thenReturn(accounts);
-        List<AccountDTO> accountDTOs = Arrays.asList(new AccountDTO(), new AccountDTO());
-        when(mapper.accountsToAccountsDto(accounts)).thenReturn(accountDTOs);
+        List<AccountDto> accountDtos = Arrays.asList(new AccountDto(), new AccountDto());
+        when(mapper.accountsToAccountsDto(accounts)).thenReturn(accountDtos);
 
         // Act
-        List<AccountDTO> result = accountService.findAllAccounts();
+        List<AccountDto> result = accountService.findAllAccounts();
 
         // Assert
-        assertEquals(accountDTOs, result);
+        assertEquals(accountDtos, result);
     }
 
     @Test
     public void testAddNewAccount() {
         // Arrange
-        AccountDTO accountDTO = new AccountDTO();
+        AccountDto accountDTO = new AccountDto();
         Account account = new Account();
         when(mapper.dtoToAccount(accountDTO)).thenReturn(account);
         when(repository.findByNickname(account.getNickname())).thenReturn(null);
         Account savedAccount = new Account();
         when(repository.save(account)).thenReturn(savedAccount);
-        AccountDTO savedAccountDTO = new AccountDTO();
-        when(mapper.toDto(savedAccount)).thenReturn(savedAccountDTO);
+        AccountDto savedAccountDto = new AccountDto();
+        when(mapper.toDto(savedAccount)).thenReturn(savedAccountDto);
 
         // Act
-        AccountDTO result = accountService.addNewAccount(accountDTO);
+        AccountDto result = accountService.addNewAccount(accountDTO);
 
         // Assert
-        assertEquals(savedAccountDTO, result);
+        assertEquals(savedAccountDto, result);
         assertNotNull(account.getId());
         assertNotNull(account.getCreatedAt());
         assertNotNull(account.getUpdatedAt());
@@ -106,7 +106,7 @@ public class AccountServiceTest {
     @Test(expected = AccountExistException.class)
     public void testAddNewAccountWhenAccountExists() {
         // Arrange
-        AccountDTO accountDTO = new AccountDTO();
+        AccountDto accountDTO = new AccountDto();
         Account account = new Account();
         when(mapper.dtoToAccount(accountDTO)).thenReturn(account);
         when(repository.findByNickname(account.getNickname())).thenReturn(new Account());
@@ -122,21 +122,21 @@ public class AccountServiceTest {
     public void testEditAccountById() {
         // Arrange
         UUID id = UUID.randomUUID();
-        AccountDTO accountDTO = new AccountDTO();
+        AccountDto accountDTO = new AccountDto();
         accountDTO.setNickname("new_nickname");
         accountDTO.setStatus(AccountStatus.BLOCKED);
         Account account = new Account();
         when(repository.findById(id)).thenReturn(Optional.of(account));
         Account savedAccount = new Account();
         when(repository.save(account)).thenReturn(savedAccount);
-        AccountDTO savedAccountDTO = new AccountDTO();
-        when(mapper.toDto(savedAccount)).thenReturn(savedAccountDTO);
+        AccountDto savedAccountDto = new AccountDto();
+        when(mapper.toDto(savedAccount)).thenReturn(savedAccountDto);
 
         // Act
-        AccountDTO result = accountService.editAccountById(id, accountDTO);
+        AccountDto result = accountService.editAccountById(id, accountDTO);
 
         // Assert
-        assertEquals(savedAccountDTO, result);
+        assertEquals(savedAccountDto, result);
         assertEquals(accountDTO.getNickname(), account.getNickname());
         assertEquals(AccountStatus.BLOCKED, account.getStatus());
         assertNotNull(account.getUpdatedAt());
@@ -148,7 +148,7 @@ public class AccountServiceTest {
     public void testEditAccountByIdWhenAccountNotFound() {
         // Arrange
         UUID id = UUID.randomUUID();
-        AccountDTO accountDTO = new AccountDTO();
+        AccountDto accountDTO = new AccountDto();
         when(repository.findById(id)).thenReturn(Optional.empty());
 
         // Act

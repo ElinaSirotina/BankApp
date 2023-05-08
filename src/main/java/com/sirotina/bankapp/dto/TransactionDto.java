@@ -16,15 +16,21 @@ import java.util.UUID;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TransactionDto {
-    UUID id;
-    TransactionType type;
-    BigDecimal amount;
-    String description;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    Timestamp createdAt;
 
-    Account debitAccountId;
-    Account creditAccountId;
+    private UUID id;
+
+    private TransactionType type;
+
+    private BigDecimal amount;
+
+    private String description;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Timestamp createdAt;
+
+    private Account debitAccountId;
+
+    private Account creditAccountId;
 
     public TransactionDto(UUID id, BigDecimal amount) {
         this.id = id;
