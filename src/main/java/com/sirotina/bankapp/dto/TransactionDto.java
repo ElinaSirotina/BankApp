@@ -32,8 +32,4 @@ public class TransactionDto {
 
     private Account creditAccountId;
 
-    public TransactionDto(UUID id, BigDecimal amount) {
-        this.id = id;
-        this.amount = amount;
-    }
 }

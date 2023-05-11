@@ -24,30 +24,30 @@ public class Product {
 
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "name", nullable = false, length = 70)
+    @Column(name = "name", length = 70)
     private String name;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
-    @Column(name = "currency_code", nullable = false)
+    @Column(name = "currency_code")
     @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
 
-    @Column(name = "interest_rate", nullable = false, precision = 4)
+    @Column(name = "interest_rate", precision = 4)
     private BigDecimal interestRate;
 
-    @Column(name = "limit", nullable = false)
+    @Column(name = "limit")
     private Integer limit;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
 
 

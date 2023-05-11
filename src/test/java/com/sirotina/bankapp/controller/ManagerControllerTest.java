@@ -42,20 +42,24 @@ public class ManagerControllerTest {
 
     @Test
     public void getAllManagers_returnsListOfManagers() throws Exception {
-        // Arrange
+        ManagerDto managerDto = new ManagerDto();
+        managerDto.setId(UUID.randomUUID());
+        managerDto.setFirstName("John");
+        managerDto.setLastName("Doe");
+        ManagerDto managerDto2 = new ManagerDto();
+        managerDto2.setId(UUID.randomUUID());
+        managerDto2.setFirstName("John");
+        managerDto2.setLastName("Doe");
         List<ManagerDto> expectedManagers = Arrays.asList(
-                new ManagerDto(UUID.randomUUID(), "John", "Doe"),
-                new ManagerDto(UUID.randomUUID(), "Jane", "Doe")
+                managerDto2, managerDto
         );
         when(managerService.getAllManagers()).thenReturn(expectedManagers);
-
-        // Act
+        
         var result = mockMvc.perform(MockMvcRequestBuilders.get("/api/managers/managers")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // Assert
         String json = result.getResponse().getContentAsString();
         List<ManagerDto> actualManagers = new ObjectMapper().readValue(json, new TypeReference<List<ManagerDto>>() {});
         assertEquals(expectedManagers, actualManagers);
@@ -63,18 +67,18 @@ public class ManagerControllerTest {
 
     @Test
     public void getInfoAboutAccount_returnsManagerById() throws Exception {
-        // Arrange
         UUID managerId = UUID.randomUUID();
-        ManagerDto expectedManager = new ManagerDto(managerId, "John", "Doe");
+        ManagerDto expectedManager = new ManagerDto();
+        expectedManager.setId(managerId);
+        expectedManager.setFirstName("John");
+        expectedManager.setLastName("Doe");
         when(managerService.getManagerById(managerId)).thenReturn(expectedManager);
-
-        // Act
+        
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/managers/managers/{id}", managerId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // Assert
         String json = result.getResponse().getContentAsString();
         ManagerDto actualManager = new ObjectMapper().readValue(json, ManagerDto.class);
         assertEquals(expectedManager, actualManager);

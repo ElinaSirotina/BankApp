@@ -23,8 +23,8 @@ public class ClientController {
     private final ClientService clientService;
 
     @Operation(
-            summary = "Получение клиентов по статусу",
-            description = "Позволяет получить всех клиентов по статусу"
+            summary = "Getting clients by status",
+            description = "Allows to get all clients by status."
     )
     @GetMapping("/status/{status}")
     @ResponseStatus(HttpStatus.OK)
@@ -33,8 +33,8 @@ public class ClientController {
     }
 
     @Operation(
-            summary = "Получение клиента",
-            description = "Позволяет получить клиента по id"
+            summary = "Getting a client",
+            description = "Allows to get a client by id"
     )
     @GetMapping("/client/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -43,8 +43,8 @@ public class ClientController {
     }
 
     @Operation(
-            summary = "Получение всех клиентов",
-            description = "Позволяет получить всех клиентов"
+            summary = "Getting all clients",
+            description = "Allows to get all clients"
     )
     @GetMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
@@ -53,8 +53,8 @@ public class ClientController {
     }
 
     @Operation(
-            summary = "Добавление клиента",
-            description = "Позволяет добавить клиента"
+            summary = "Add a client",
+            description = "Allows to add a client"
     )
     @PostMapping(path = "/add", consumes = {"application/json"})
     @ResponseStatus(HttpStatus.CREATED)
@@ -63,8 +63,8 @@ public class ClientController {
     }
 
     @Operation(
-            summary = "Удаление клиента",
-            description = "Позволяет удалить клиента по id"
+            summary = "Delete a client",
+            description = "Allows to delete a client by id"
     )
     @DeleteMapping("/delete/{id}")
     public void deleteClientById(@PathVariable UUID id) {

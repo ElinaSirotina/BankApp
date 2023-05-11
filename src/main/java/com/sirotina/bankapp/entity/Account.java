@@ -41,7 +41,7 @@ public class Account {
     private AccountStatus status;
 
     @Column(name = "balance")
-    private Integer balance;
+    private BigDecimal balance;
 
     @Column(name = "currency_code")
     @Enumerated(EnumType.STRING)

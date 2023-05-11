@@ -21,8 +21,8 @@ public class AccountController {
     private final AccountServiceImpl service;
 
     @Operation(
-            summary = "Получение аккаунтов по статусу",
-            description = "Позволяет получить список аккаунтов по статусу аккаунта"
+            summary = "Getting accounts by status",
+            description = "Allows to get a list of accounts by account status"
     )
     @GetMapping("/{status}")
     public List<AccountDto> getAllAccountsByStatus(@PathVariable AccountStatus status) {
@@ -30,8 +30,8 @@ public class AccountController {
     }
 
     @Operation(
-            summary = "Получение всех аккаунтов",
-            description = "Позволяет получить список всех аккаунтов"
+            summary = "Getting all accounts.",
+            description = "Allows to get a list of all accounts"
     )
     @GetMapping("/list")
     public List<AccountDto> getAllAccounts() {
@@ -39,8 +39,8 @@ public class AccountController {
     }
 
     @Operation(
-            summary = "Добавить аккаунт",
-            description = "Позволяет добавить аккаунт"
+            summary = "Add account",
+            description = "Allows to add accounts"
     )
     @PostMapping(path = "/add", consumes = {"application/json"})
     public AccountDto addNewAccount(@RequestBody @Parameter(description = "json аккунт") AccountDto accountDTO) {
@@ -49,8 +49,8 @@ public class AccountController {
     }
 
     @Operation(
-            summary = "Редактировать аккаунт",
-            description = "Позволяет редактировать аккаунт по его id"
+            summary = "Edit account",
+            description = "Allows to edit an account by its id"
     )
     @PutMapping(path = "edit/{id}", consumes = {"application/json"})
     public AccountDto editAccountById(@PathVariable UUID id, @RequestBody AccountDto accountDTO) {
@@ -58,8 +58,8 @@ public class AccountController {
     }
 
     @Operation(
-            summary = "Удалить аккаунт",
-            description = "Позволяет удалить аккаунт по его id"
+            summary = "Delete account",
+            description = "Allows to delete an account by its id"
     )
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable UUID id){

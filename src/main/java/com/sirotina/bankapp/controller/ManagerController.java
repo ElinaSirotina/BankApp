@@ -24,11 +24,11 @@ public class ManagerController {
 
     private final ManagerServiceImpl managerService;
 
-    @Operation(summary = "Получить список всех менеджеров")
+    @Operation(summary = "Getting a list of all managers")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Позволяет получить список всех манагеров",
+                    description = "Allows to get a list of all managers",
                     content = {
                             @Content(
                                     mediaType = "application/json",
@@ -40,11 +40,11 @@ public class ManagerController {
         return managerService.getAllManagers();
     }
 
-    @Operation(summary = "Получить менеджера")
+    @Operation(summary = "Getting a manager")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Позволяет получить манагера по его id",
+                    description = "Allows to get a manager by its id",
                     content = {
                             @Content(
                                     mediaType = "application/json",

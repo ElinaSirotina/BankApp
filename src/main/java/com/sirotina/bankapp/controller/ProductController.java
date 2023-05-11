@@ -22,8 +22,8 @@ public class ProductController {
     private final ProductService productService;
 
     @Operation(
-            summary = "Получение всех продуктов",
-            description = "Позволяет получить все продукты"
+            summary = "Getting all products",
+            description = "Allows to get a list of all products"
     )
     @GetMapping("/products")
     public ResponseEntity<List<ProductDto>> getAll() {
@@ -32,8 +32,8 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Получение продукта",
-            description = "Позволяет получить продукт по id"
+            summary = "Getting a product",
+            description = "Allows to get a a product by id"
     )
     @GetMapping("product/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable UUID id) throws ProductNotFoundException {
@@ -42,8 +42,8 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Создание продукта",
-            description = "Позволяет создать продукт"
+            summary = "Creating a product",
+            description = "Allows to create a product"
     )
     @PostMapping("/create")
     public ResponseEntity<ProductDto> create(@RequestBody ProductDto dto) {
@@ -52,8 +52,8 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Редактирование продукта",
-            description = "Позволяет редактировать продукт  по id"
+            summary = "Editing a product",
+            description = "Allows to edit a product by its id"
     )
     @PutMapping("edit/{id}")
     public ResponseEntity<ProductDto> editProductById(@PathVariable UUID id, @RequestBody ProductDto dto) throws ProductNotFoundException {
@@ -62,8 +62,8 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Удаление продукта",
-            description = "Позволяет удалить продукт по id"
+            summary = "Deleting a product",
+            description = "Allows to delete a product by its id"
     )
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> deleteProductById(@PathVariable UUID id) {

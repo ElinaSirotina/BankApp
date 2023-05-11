@@ -28,13 +28,6 @@ public class ClientServiceImpl implements ClientService {
     private final ClientMapper clientMapper;
     private final ClientRepository clientRepository;
 
-//    public List<ClientDto> getAllClients() {
-//        List<Client> clients = clientRepository.findAll();
-//        return clients.stream()
-//                .map(clientMapper::clientToClientDtoWithManagerId)
-//                .collect(Collectors.toList());
-//    }
-
     @Override
     @Transactional(readOnly = true)
     public List<ClientDto> getAllClientsByStatus(ClientStatus status) throws ClientNotFoundException {

@@ -51,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
         account.setNickname(accountDTO.getNickname());
         account.setType(accountDTO.getType());
         account.setStatus(accountDTO.getStatus());
-        account.setBalance(new BigDecimal(accountDTO.getBalance()).intValue());
+        account.setBalance(accountDTO.getBalance());
         account.setCurrencyCode(CurrencyCode.valueOf(accountDTO.getCurrencyCode()));
         account.setCreatedAt(accountDTO.getCreatedAt());
         account.setUpdatedAt(accountDTO.getUpdatedAt());

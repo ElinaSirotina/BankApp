@@ -22,8 +22,8 @@ public class AgreementController {
     private final AgreementService agreementService;
 
     @Operation(
-            summary = "Получение всех соглашений",
-            description = "Позволяет получить список соглашений"
+            summary = "Getting all agreements",
+            description = "Allows to get a list of agreements"
     )
     @GetMapping("/agreements")
     public ResponseEntity<List<AgreementDto>> getAllAgreements() {
@@ -32,8 +32,8 @@ public class AgreementController {
     }
 
     @Operation(
-            summary = "Получение соглашения",
-            description = "Позволяет получить соглашение по id"
+            summary = "Getting an agreement",
+            description = "Allows to get an agreement by id"
     )
     @GetMapping("/agreement/{id}")
     public ResponseEntity<AgreementDto> getAgreementById(@PathVariable UUID id) throws AgreementNotFoundException {
@@ -42,8 +42,8 @@ public class AgreementController {
     }
 
     @Operation(
-            summary = "Создание нового соглашения",
-            description = "Позволяет создать новое соглашение"
+            summary = "Creating a new agreement",
+            description = "Allows to creat a new agreementе"
     )
     @PostMapping("/create")
     public ResponseEntity<AgreementDto> createAgreement(@RequestBody AgreementDto dto) {
@@ -52,8 +52,8 @@ public class AgreementController {
     }
 
     @Operation(
-            summary = "Обновление соглашения",
-            description = "Позволяет обновить соглашение по id"
+            summary = "Updating an agreement",
+            description = "Allows to update an agreement by id"
     )
     @PutMapping("update/{id}")
     public ResponseEntity<AgreementDto> updateAgreementById(@PathVariable UUID id, @RequestBody AgreementDto dto)
@@ -63,8 +63,8 @@ public class AgreementController {
     }
 
     @Operation(
-            summary = "Удаление соглашения",
-            description = "Позволяет удалить соглашение по id"
+            summary = "Deleting an agreement",
+            description = "Allows to delete an agreement by id"
     )
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> deleteAgreementById(@PathVariable UUID id) {

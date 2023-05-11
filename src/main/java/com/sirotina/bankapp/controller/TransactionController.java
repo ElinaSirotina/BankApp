@@ -19,8 +19,8 @@ public class TransactionController {
     private final TransactionServiceImpl transactionService;
 
     @Operation(
-            summary = "Получение всех транзакций",
-            description = "Позволяет получить все транзакции"
+            summary = "Getting all transactions",
+            description = "Allows to get a list of all transactions"
     )
     @GetMapping("/transactions")
     @ResponseStatus(HttpStatus.OK)
@@ -29,8 +29,8 @@ public class TransactionController {
     }
 
     @Operation(
-            summary = "Получение транзакции",
-            description = "Позволяет получить транзакцию по id"
+            summary = "Getting transactions",
+            description = "Allows to get transactions by id"
     )
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -39,8 +39,8 @@ public class TransactionController {
     }
 
     @Operation(
-            summary = "Создание транзакции",
-            description = "Позволяет создать транзакцию"
+            summary = "Creating transactions",
+            description = "Allows to create a new transaction"
     )
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
@@ -49,8 +49,8 @@ public class TransactionController {
     }
 
     @Operation(
-            summary = "Удаление транзакции",
-            description = "Позволяет удалить транзакцию по id"
+            summary = "Delete a transaction",
+            description = "Allows to delete a transaction by id"
     )
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)

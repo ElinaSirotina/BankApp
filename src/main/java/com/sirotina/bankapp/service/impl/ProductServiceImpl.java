@@ -7,7 +7,6 @@ import com.sirotina.bankapp.repository.ProductRepository;
 import com.sirotina.bankapp.service.ProductService;
 import com.sirotina.bankapp.service.exception.ErrorMessage;
 import com.sirotina.bankapp.service.exception.ProductNotFoundException;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
